@@ -1,2 +1,4 @@
 images/*.jpg
 images/*.png
+__pycache__/*
+notebook/*
