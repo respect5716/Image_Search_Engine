@@ -26,7 +26,7 @@ def query():
     image.save(f.filename)
 
     image = image.resize((224, 224))
-    query_vector = fe(image)
+    query_vector = fe.extract(image)
 
     script_query = {
         "script_score": {

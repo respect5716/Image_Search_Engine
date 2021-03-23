@@ -11,10 +11,12 @@ services:
       - "es"
     links:
       - "es"
-  
+    container_name: image_search_engine_web
+
   es:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.7.1
     ports:
       - 9200:9200
     environment:
       - discovery.type=single-node
+    container_name: image_search_engine_es

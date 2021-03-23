@@ -1,7 +1,7 @@
 import os
 from tqdm import tqdm
 from elasticsearch import Elasticsearch, helpers
-from utils import create_model, Dataloader
+from utils import FeatureExtractor, Dataloader
 from PIL import Image
 
 import argparse
@@ -28,12 +28,12 @@ def main(args):
     create_index(es, args.index)
     image_dir = os.path.join(os.path.dirname(__file__), 'images')
     loader = Dataloader(image_dir, 32)
-    model = create_model()
+    fe = FeatureExtractor()
 
 
     for i in tqdm(range(len(loader))):
         path, image = loader.__getitem__(i)
-        vector = model.predict(image)
+        vector = fe.predict(image)
         docs = [{'_index':args.index, '_source':{'path':str(p), 'vector':list(v)}} for p,v in zip(path, vector)]
         helpers.bulk(es, docs)
     

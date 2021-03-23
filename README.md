@@ -20,6 +20,7 @@ docker-compose up
 The first time you run it, you need to put data in the Elasticsearch. The images in the **images/** directory are uploaded if you run the code below in the web container CLI.
 
 ```
+docker exec -it image_search_engine_web /bin/bash
 python prepare.py
 ```
 
@@ -44,4 +45,4 @@ sudo sysctl -w vm.max_map_count=262144
 
 ## Result
 
-![](result.PNG)
+![](assets/result.PNG)

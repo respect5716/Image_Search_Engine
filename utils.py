@@ -40,7 +40,11 @@ class FeatureExtractor(object):
         print("Creating model complete")
         return tf.keras.Model(inputs, outputs)
     
-    def __call__(self, image):
+    def predict(self, inputs):
+        return self.model.predict(inputs)
+
+    def extract(self, image):
         image = preprocess_input(np.array(image))
-        feature = self.model(image[None,:,:,:])
-        return feature[0].numpy()
+        vector = self.predict(image[None,:,:,:])
+        return vector[0]
+    
