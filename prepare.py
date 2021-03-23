@@ -2,11 +2,12 @@ import os
 from tqdm import tqdm
 from elasticsearch import Elasticsearch, helpers
 from utils import create_model, Dataloader
+from PIL import Image
 
 import argparse
 parser = argparse.ArgumentParser()
 parser.add_argument('--p', type=int, default=9200)
-parser.add_argument('--index', type=str, default='images')
+parser.add_argument('--index', type=str, default='image')
 args = parser.parse_args()
 
 def create_index(es, index):
@@ -23,7 +24,7 @@ def create_index(es, index):
 
 
 def main(args):
-    es = Elasticsearch(f'localhost:{args.p}')
+    es = Elasticsearch(f'es:{args.p}')
     create_index(es, args.index)
     image_dir = os.path.join(os.path.dirname(__file__), 'images')
     loader = Dataloader(image_dir, 32)

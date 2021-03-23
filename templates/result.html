@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        div {margin-left: 20px;}
+        img {width: 128px; height: 128px;}
+        figure {float: left; margin-left: 0px;}
+    </style>
+    <title>Image Search Engine</title>
+
+</head>
+<body>
+    <a href="{{ url_for('index') }}"><h1>Image Search Engine</h1></a>
+    <form action="{{ url_for('query') }}">
+        <input type="file" name="query_img">
+        <input type="submit">
+    </form>
+
+    <div>
+        <h3>QUERY</h3>
+        <img src="{{ url_for('image', filename=query) }}">
+    </div>
+
+    <div>
+        {% for r in result %}
+        <figure>
+            <p>RANK {{r.rank}}</p>
+            <img src="{{ url_for('image', filename=r.path) }}">
+            <figcaption>Score: {{r.score}}</figcaption>
+        </figure>
+        {% endfor %}
+    </div>
+
+
+</body>
+</html>

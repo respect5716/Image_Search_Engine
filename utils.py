@@ -3,14 +3,6 @@ import numpy as np
 import tensorflow as tf
 from tensorflow.keras.applications.mobilenet_v2 import MobileNetV2, preprocess_input
 
-def create_model(input_shape=(224, 224, 3)):
-    inputs = tf.keras.layers.Input(input_shape)
-    base_model = MobileNetV2(include_top=False, weights='imagenet', input_shape=input_shape)
-    x = base_model(inputs)
-    outputs = tf.keras.layers.GlobalAveragePooling2D()(x)
-    
-    print("Creating model complete")
-    return tf.keras.Model(inputs, outputs)
 
 def load_image(path):
     img = tf.keras.preprocessing.image.load_img(path, target_size=(224, 224))
@@ -34,3 +26,21 @@ class Dataloader(tf.keras.utils.Sequence):
         image = [load_image(i) for i in path]
         image = np.stack(image)
         return path, image
+
+class FeatureExtractor(object):
+    def __init__(self):
+        self.model = self.create_model()
+    
+    def create_model(self, input_shape=(224, 224, 3)):
+        inputs = tf.keras.layers.Input(input_shape)
+        base_model = MobileNetV2(include_top=False, weights='imagenet', input_shape=input_shape)
+        x = base_model(inputs)
+        outputs = tf.keras.layers.GlobalAveragePooling2D()(x)
+        
+        print("Creating model complete")
+        return tf.keras.Model(inputs, outputs)
+    
+    def __call__(self, image):
+        image = preprocess_input(np.array(image))
+        feature = self.model(image[None,:,:,:])
+        return feature[0].numpy()

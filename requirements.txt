@@ -1,0 +1,6 @@
+flask
+elasticsearch
+numpy
+tqdm
+pillow
+tensorflow==2.4.1
