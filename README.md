@@ -17,11 +17,11 @@ docker-compose up
 
 
 
-The first time you run it, you need to put data in the Elasticsearch. The images in the **images/** directory are uploaded if you run the code below in the web container CLI.
+The first time you run it, you need to put data in the Elasticsearch. The images in the **images/** directory are uploaded if you run the code below.
 
 ```
 docker exec -it image_search_engine_web /bin/bash
-python prepare.py
+python prepare.py // in the web container CLI
 ```
 
 
