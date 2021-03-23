@@ -21,7 +21,7 @@ The first time you run it, you need to put data in the Elasticsearch. The images
 
 ```
 docker exec -it image_search_engine_web /bin/bash
-python prepare.py // in the web container CLI
+python prepare.py  # in the web container CLI
 ```
 
 
